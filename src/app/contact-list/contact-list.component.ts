@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Contact } from '../shared/contact.model';
+import { ApiService } from '../shared/api.service';
 
 @Component({
   selector: 'cm-contact-list',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactListComponent implements OnInit {
 
-  constructor() { }
+  contacts: Contact[];
+
+  constructor(public api: ApiService) { }
 
   ngOnInit() {
+    this.api.get('contacts')
+      .subscribe(data => this.contacts = data);
   }
 
 }
